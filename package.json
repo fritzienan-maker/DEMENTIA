@@ -1,0 +1,1 @@
+{echo   "name": "dementiahub",echo   "version": "1.0.0",echo   "scripts": {echo     "build": "node build.js"echo   }echo }
