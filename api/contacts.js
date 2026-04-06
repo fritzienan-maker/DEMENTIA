@@ -1,11 +1,12 @@
 /**
- * /api/contacts.js — Create or list GHL contacts
+ * /api/contacts.js — Create, list, or search GHL contacts
  *
- * GET  /api/contacts          → returns paginated contact list
- * POST /api/contacts          → creates a new contact
- *   body: { name, email, phone }
+ * GET  /api/contacts                    → list contacts
+ * GET  /api/contacts?email=x            → search by email
+ * GET  /api/contacts?phone=x            → search by phone
+ * POST /api/contacts                    → create new contact
+ *   body: { name, email, phone, patientName }
  */
-
 const GHL_BASE = 'https://services.leadconnectorhq.com';
 
 module.exports = async function handler(req, res) {
@@ -18,27 +19,40 @@ module.exports = async function handler(req, res) {
   const locationId = process.env.GHL_LOCATION_ID;
 
   if (!apiKey || !locationId) {
-    console.error('[contacts] Missing env vars — GHL_API_KEY or GHL_LOCATION_ID');
+    console.error('[contacts] Missing env vars');
     return res.status(500).json({ error: 'Server not configured' });
   }
 
   const headers = {
     'Authorization': `Bearer ${apiKey}`,
-    'Version':       '2021-04-15',
+    'Version':       '2021-07-28',
     'Content-Type':  'application/json',
     'Accept':        'application/json',
   };
 
-  // ── GET: list contacts ─────────────────────────────────────
+  // ── GET: list or search contacts ───────────────────────────
   if (req.method === 'GET') {
     try {
-      const limit = req.query.limit || 25;
-      const r = await fetch(
-        `${GHL_BASE}/contacts/?locationId=${locationId}&limit=${limit}`,
-        { headers }
-      );
+      const { email, phone, limit } = req.query;
+      let url;
+
+      if (email) {
+        // Search by email
+        url = `${GHL_BASE}/contacts/search?locationId=${locationId}&email=${encodeURIComponent(email)}`;
+        console.log(`[contacts] Searching by email: ${email}`);
+      } else if (phone) {
+        // Search by phone
+        url = `${GHL_BASE}/contacts/search?locationId=${locationId}&phone=${encodeURIComponent(phone)}`;
+        console.log(`[contacts] Searching by phone: ${phone}`);
+      } else {
+        // List all
+        url = `${GHL_BASE}/contacts/?locationId=${locationId}&limit=${limit || 25}`;
+        console.log(`[contacts] Listing contacts`);
+      }
+
+      const r    = await fetch(url, { headers });
       const data = await r.json();
-      console.log(`[contacts] Fetched ${data.contacts?.length ?? 0} contacts`);
+      console.log(`[contacts GET] Result count: ${data.contacts?.length ?? data.count ?? 0}`);
       return res.status(r.status).json(data);
     } catch (err) {
       console.error('[contacts GET]', err.message);
@@ -48,27 +62,41 @@ module.exports = async function handler(req, res) {
 
   // ── POST: create contact ───────────────────────────────────
   if (req.method === 'POST') {
-    const { name, email, phone } = req.body || {};
+    const { name, email, phone, patientName } = req.body || {};
 
-    // Validate — at least one identifier required
     if (!name && !email && !phone) {
       return res.status(400).json({ error: 'Provide at least one of: name, email, phone' });
     }
 
-    // Build payload, only include fields that were provided
-    const payload = { locationId };
-    if (name)  payload.name  = String(name).trim();
-    if (email) payload.email = String(email).trim().toLowerCase();
-    if (phone) payload.phone = String(phone).trim();
+    // Split full name into first + last
+    const nameParts = (name || '').trim().split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName  = nameParts.slice(1).join(' ') || '';
+
+    const payload = {
+      locationId,
+      firstName,
+      lastName,
+      name: (name || '').trim(),
+    };
+    if (email)       payload.email = String(email).trim().toLowerCase();
+    if (phone)       payload.phone = String(phone).trim();
+
+    // Store patient name in GHL custom field if provided
+    if (patientName) {
+      payload.customFields = [
+        { key: 'patient_name', value: String(patientName).trim() }
+      ];
+    }
 
     try {
-      const r = await fetch(`${GHL_BASE}/contacts/`, {
+      const r    = await fetch(`${GHL_BASE}/contacts/`, {
         method:  'POST',
         headers,
         body:    JSON.stringify(payload),
       });
       const data = await r.json();
-      console.log(`[contacts POST] Created contact: ${data.contact?.id ?? 'unknown'}`);
+      console.log(`[contacts POST] Created: ${data.contact?.id ?? 'unknown'} — ${name}`);
       return res.status(r.status).json(data);
     } catch (err) {
       console.error('[contacts POST]', err.message);
