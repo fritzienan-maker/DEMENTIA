@@ -177,15 +177,12 @@ function render() {
 // AUTH SCREENS
 // ══════════════════════════════════════════════════════════════
 function renderLogin(msg) {
-  return ctx ? `<elevenlabs-convai
-  id="dh-el-widget-caregiver"
-  agent-id="${esc(CFG.elevenLabsAgentId)}"
-  dynamic-variables='${elVars}'
-  action-text="Need help?"
-  start-call-text="Start a call"
-  style="display:block;">
-</elevenlabs-convai>` : '';
-    ${msg ? `<div class="alert-error">${esc(msg)}</div>` : ''}(
+  return `<div class="dh-auth-bg"><div class="dh-auth-card">
+    <div class="text-center mb-8">
+      <h1 class="text-2xl font-black text-slate-900 mb-1">Welcome Back</h1>
+      <p class="text-slate-500 text-sm font-medium">Sign in to your Caregiver Portal</p>
+    </div>
+    ${msg ? `<div class="alert-error">${esc(msg)}</div>` : ''}
     <form id="loginForm" class="space-y-4">
       <div><label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Email</label>
         <input id="loginEmail" class="dh-input" type="email" required placeholder="your@email.com" autocomplete="email"></div>
