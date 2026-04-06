@@ -185,7 +185,7 @@ function renderLogin(msg) {
   start-call-text="Start a call"
   style="display:block;">
 </elevenlabs-convai>` : '';
-    ${msg ? `<div class="alert-error">${esc(msg)}</div>` : ''}
+    ${msg ? `<div class="alert-error">${esc(msg)}</div>` : ''}(
     <form id="loginForm" class="space-y-4">
       <div><label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Email</label>
         <input id="loginEmail" class="dh-input" type="email" required placeholder="your@email.com" autocomplete="email"></div>
