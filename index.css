@@ -1,0 +1,78 @@
+* { font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; }
+body { margin: 0; background: #F4F7F9; }
+
+.dh-nav-link { display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:16px; color:rgba(255,255,255,0.55); text-decoration:none; font-size:14px; font-weight:600; transition:all .2s; cursor:pointer; }
+.dh-nav-link:hover { background:rgba(255,255,255,0.08); color:#fff; }
+.dh-nav-link.active { background:#006D77; color:#fff; box-shadow:0 4px 20px rgba(0,109,119,0.4); }
+
+.dh-card { background:#fff; border-radius:24px; padding:24px; box-shadow:0 1px 4px rgba(0,0,0,0.06); border:1px solid #f1f5f9; }
+.dh-stat-card { background:#fff; border-radius:20px; padding:20px; box-shadow:0 1px 4px rgba(0,0,0,0.06); border:1px solid #f1f5f9; display:flex; align-items:center; gap:16px; }
+.dh-stat-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+
+.dh-badge { padding:4px 10px; border-radius:20px; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; }
+.dh-badge-open     { background:#dbeafe; color:#1d4ed8; }
+.dh-badge-needs    { background:#fee2e2; color:#dc2626; }
+.dh-badge-resolved { background:#d1fae5; color:#065f46; }
+.dh-badge-critical { background:#fef2f2; color:#b91c1c; border:1px solid #fca5a5; }
+.dh-badge-due      { background:#fef3c7; color:#b45309; }
+.dh-badge-track    { background:#d1fae5; color:#065f46; }
+
+.dh-btn-primary { background:linear-gradient(135deg,#006D77,#003D44); color:#fff; padding:13px 24px; border-radius:14px; font-weight:700; font-size:14px; border:none; cursor:pointer; text-decoration:none; display:inline-block; transition:opacity .2s; text-align:center; width:100%; }
+.dh-btn-primary:hover { opacity:.9; }
+.dh-btn-sm { padding:8px 16px; font-size:12px; border-radius:10px; width:auto; }
+
+.dh-input { width:100%; padding:12px 16px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:14px; outline:none; transition:border .2s; background:#f8fafc; }
+.dh-input:focus { border-color:#006D77; box-shadow:0 0 0 3px rgba(0,109,119,.1); background:#fff; }
+.dh-select { width:100%; padding:10px 14px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:13px; outline:none; background:#f8fafc; color:#374151; }
+
+.dh-sidebar { background:#003D44; width:265px; min-width:265px; display:flex; flex-direction:column; padding:28px 18px; position:fixed; top:0; left:0; height:100vh; z-index:100; overflow-y:auto; }
+.dh-main { margin-left:265px; min-height:100vh; background:#F4F7F9; }
+.dh-content { padding:32px; width:100%; }
+
+.dh-table { width:100%; border-collapse:collapse; font-size:13px; }
+.dh-table th { text-align:left; padding:10px 14px; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:#94a3b8; border-bottom:2px solid #f1f5f9; font-weight:700; }
+.dh-table td { padding:12px 14px; border-bottom:1px solid #f8fafc; color:#374151; vertical-align:middle; }
+.dh-table tr:last-child td { border-bottom:none; }
+.dh-table tr:hover td { background:#fafcff; }
+
+.dh-auth-bg { min-height:100vh; background:linear-gradient(135deg,#003D44 0%,#006D77 60%,#004D53 100%); display:flex; align-items:center; justify-content:center; padding:24px; }
+.dh-auth-card { background:#fff; border-radius:32px; padding:44px; width:100%; max-width:420px; box-shadow:0 24px 80px rgba(0,0,0,.18); }
+
+.dh-pulse { animation: dhpulse 2s infinite; }
+@keyframes dhpulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.dh-mob-bar { display:none; background:#003D44; padding:14px 20px; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:99; }
+
+.filter-btn { padding:7px 16px; border-radius:20px; font-size:11px; font-weight:700; border:1.5px solid #e2e8f0; background:#fff; color:#64748b; cursor:pointer; transition:all .2s; }
+.filter-btn.active { background:#006D77; color:#fff; border-color:#006D77; }
+.filter-btn:hover:not(.active) { border-color:#006D77; color:#006D77; }
+
+.alert-banner { border-radius:20px; padding:16px 20px; margin-bottom:20px; display:flex; align-items:flex-start; gap:14px; }
+.alert-critical { background:#fef2f2; border:1.5px solid #fca5a5; }
+.alert-warning  { background:#fffbeb; border:1.5px solid #fcd34d; }
+
+.action-btn { display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; font-size:13px; font-weight:600; border:1.5px solid #e2e8f0; background:#fff; cursor:pointer; width:100%; transition:all .2s; color:#374151; }
+.action-btn:hover { border-color:#006D77; color:#006D77; background:#f0fafa; }
+.action-btn.danger:hover { border-color:#ef4444; color:#ef4444; background:#fef2f2; }
+
+.convo-item { padding:14px; border-radius:16px; border:1px solid #f1f5f9; background:#fafcff; cursor:pointer; transition:border .2s; }
+.convo-item:hover { border-color:#006D77; }
+
+.kb-chip { display:inline-block; padding:4px 10px; border-radius:8px; font-size:10px; font-weight:700; background:#f0fdf4; color:#065f46; margin-bottom:8px; }
+.kb-chip.viewed { background:#e0f2fe; color:#0369a1; }
+
+.modal-overlay { position:fixed; inset:0; background:rgba(0,61,68,.55); backdrop-filter:blur(6px); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+.modal-box { background:#fff; border-radius:28px; padding:32px; width:100%; max-width:480px; box-shadow:0 24px 60px rgba(0,0,0,.18); }
+
+.spinner { width:20px; height:20px; border:2px solid #e2e8f0; border-top-color:#006D77; border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.alert-error   { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; border-radius:14px; padding:12px 16px; font-size:13px; font-weight:600; margin-bottom:14px; }
+.alert-success { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; border-radius:14px; padding:12px 16px; font-size:13px; font-weight:600; margin-bottom:14px; }
+
+@media(max-width:768px) {
+  .dh-sidebar { display:none; }
+  .dh-main { margin-left:0; }
+  .dh-content { padding:16px; }
+  .dh-mob-bar { display:flex !important; }
+}

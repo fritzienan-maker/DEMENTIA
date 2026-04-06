@@ -1,1 +1,16 @@
-{echo   "name": "dementiahub",echo   "version": "1.0.0",echo   "scripts": {echo     "build": "node build.js"echo   }echo }
+{
+  "name": "dementiahub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DementiaHub caregiver & staff portal — Vercel + GoHighLevel",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vercel": "^35.0.0"
+  }
+}
