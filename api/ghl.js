@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
 
   const ghlHeaders = {
     'Authorization': `Bearer ${apiKey}`,
-    'Version':       '2021-04-15',
+    'Version': '2021-07-28',
     'Content-Type':  'application/json',
     'Accept':        'application/json',
   };
