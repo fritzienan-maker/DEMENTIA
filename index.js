@@ -177,7 +177,7 @@ function render() {
 // AUTH SCREENS
 // ══════════════════════════════════════════════════════════════
 function renderLogin(msg) {
-   return ctx ? `<elevenlabs-convai
+  return ctx ? `<elevenlabs-convai
   id="dh-el-widget-caregiver"
   agent-id="${esc(CFG.elevenLabsAgentId)}"
   dynamic-variables='${elVars}'
