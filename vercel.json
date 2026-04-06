@@ -8,6 +8,8 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/caregiver", "dest": "/index.html" },
+    { "src": "/staff", "dest": "/staff.html" },
     { "src": "/", "dest": "/index.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ],
